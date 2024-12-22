@@ -45,10 +45,12 @@ def eth_to_wei(amount_in_eth: float) -> int:
     return int(amount_in_eth * 10**18)
 
 
-def validate_swap(web3: Web3, token1, token2, chain_id, amount, wallet_address):
+def validate_bridge(web3: Web3, token1, token2, source_chain_id, dest_chain_id, amount, wallet_address):
     native = Config.NATIVE_TOKENS
+    chains = Config.CHAIN_IDS
+    tokens = Config.AVAILABLE_TOKENS
 
-    #  token1 is the native token
+    #  token1 is the native token]
     if token1.lower() == native[str(chain_id)].lower():
         t1 = [
             {
@@ -120,7 +122,7 @@ def convert_to_readable_unit(web3: Web3, smallest_unit_amount: int, token_addres
     return smallest_unit_amount / (10**decimals)
 
 
-def swap_coins(token1, token2, amount, chain_id, wallet_address):
+def bridge_coins(token1, token2, source_chain, destination_chain, amount, chain_id, wallet_address):
     """Swap two crypto coins with each other"""
     web3 = Web3(Web3.HTTPProvider(Config.WEB3RPCURL[str(chain_id)]))
     t1_a, t1_id, t2_a, t2_id = validate_swap(web3, token1, token2, chain_id, amount, wallet_address)

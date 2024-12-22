@@ -30,7 +30,7 @@ exe = EXE(
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
-    codesign_identity='Developer ID Application: Liquid Tensor LLC (ZQN244GMTD)',
+    codesign_identity=None,
     entitlements_file='build_assets/macOS/MORagents.entitlements',
     icon=['images/moragents.icns'],
 )
@@ -47,5 +47,5 @@ app = BUNDLE(
     coll,
     name='MORagents.app',
     icon='images/moragents.icns',
-    bundle_identifier='com.liquidtensor.moragents',
+    bundle_identifier=None,
 )
