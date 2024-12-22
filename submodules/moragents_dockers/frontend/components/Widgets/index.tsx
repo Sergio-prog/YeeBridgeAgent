@@ -1,6 +1,6 @@
 // Widgets.tsx
 import React, { FC } from "react";
-import { Box, IconButton, Text } from "@chakra-ui/react";
+import {border, Box, IconButton, Text} from "@chakra-ui/react";
 import { X } from "lucide-react";
 import {
   ChatMessage,
@@ -13,6 +13,7 @@ import TradingViewWidget from "./TradingViewWidget";
 import DCAWidget from "./DCAWidget";
 import BaseSwapWidget from "./BaseSwapWidget";
 import BaseTransferWidget from "./BaseTransferWidget";
+import BaseBridgeWidget from "./BaseBridgeWidget";
 
 export const WIDGET_COMPATIBLE_AGENTS = [
   "imagen",
@@ -25,7 +26,7 @@ export const shouldOpenWidget = (message: ChatMessage) => {
   if (message.agentName === "base") {
     const content = message.content as unknown as BaseMessageContent;
     return (
-      content.actionType && ["transfer", "swap"].includes(content.actionType)
+      content.actionType && ["transfer", "swap", "bridge"].includes(content.actionType)
     );
   }
   if (message.agentName === "crypto data") {
@@ -99,7 +100,7 @@ export const Widgets: FC<WidgetsProps> = ({ activeWidget, onClose }) => {
       const content = activeWidget.content as unknown as BaseMessageContent;
       if (
         !content.actionType ||
-        !["transfer", "swap"].includes(content.actionType)
+        !["transfer", "swap", "bridge"].includes(content.actionType)
       ) {
         return null;
       }
@@ -112,10 +113,12 @@ export const Widgets: FC<WidgetsProps> = ({ activeWidget, onClose }) => {
           flexDirection="column"
           flexGrow={1}
         >
-          {content.actionType === "transfer" ? (
-            <BaseTransferWidget />
-          ) : (
+         {content.actionType === "bridge" ? (
+            <BaseBridgeWidget />
+          ) : content.actionType === "swap" ? (
             <BaseSwapWidget />
+          ) : content.actionType === "transfer" && (
+            <BaseTransferWidget />
           )}
         </Box>
       );
