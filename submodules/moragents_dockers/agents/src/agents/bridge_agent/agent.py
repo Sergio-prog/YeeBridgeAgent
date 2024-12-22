@@ -20,25 +20,8 @@ class TokenSwapAgent:
         self.context = []
 
     def check_allowance(self, token_address, wallet_address, chain_id):
-        url = self.api_request_url(
-            "/approve/allowance",
-            {"tokenAddress": token_address, "walletAddress": wallet_address},
-            chain_id,
-        )
-        response = requests.get(url, headers=Config.HEADERS)
-        data = response.json()
-        return data
-
-    def approve_transaction(self, token_address, chain_id, amount=None):
-        query_params = (
-            {"tokenAddress": token_address, "amount": amount}
-            if amount
-            else {"tokenAddress": token_address}
-        )
-        url = self.api_request_url("/approve/transaction", query_params, chain_id)
-        response = requests.get(url, headers=Config.HEADERS)
-        transaction = response.json()
-        return transaction
+        allowance = tools.check_allowance(token_address, wallet_address, chain_id)
+        return {"allowance": allowance, "token": token_address, "wallet": wallet_address}
 
     def build_tx_for_bridge(self, bridge_params, src_chain_id, dest_chain_id):
         print()

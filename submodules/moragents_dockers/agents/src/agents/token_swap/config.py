@@ -7,6 +7,14 @@ logging.basicConfig(level=logging.INFO)
 # Configuration object
 class Config:
 
+    # API endpoints
+    INCH_URL = "https://api.1inch.dev/token"
+    QUOTE_URL = "https://api.1inch.dev/swap"
+    APIBASEURL = f"https://api.1inch.dev/swap/v6.0/"
+    HEADERS = {
+        "Authorization": "Bearer WvQuxaMYpPvDiiOL5RHWUm7OzOd20nt4",
+        "accept": "application/json",
+    }
     WEB3RPCURL = {
         "56": "https://bsc-dataseed.binance.org",
         "42161": "https://arb1.arbitrum.io/rpc",
@@ -43,20 +51,4 @@ class Config:
             "type": "function",
         },
     ]
-    CHAINS = [
-        {
-            "name": "Base Sepolia",
-            "chain_id": 84532,
-        },
-        {
-            "name": "Arbitrum Sepolia",
-            "chain_id": 421614,
-        }
-    ]
-    CHAIN_IDS = list(map(lambda x: x["chain_id"], CHAINS))
-
-    AVAILABLE_TOKENS = {
-        "QSP": {
-            "symbol":
-        }
-    }
+    INCH_NATIVE_TOKEN_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"

@@ -36,6 +36,28 @@ class Config:
                 "required": ["asset_id"],
             },
         },
+        {
+            "name": "bridge_assets",
+            "description": "Bridge an asset to another network",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "amount": {
+                        "type": "string",
+                        "description": "Amount of the asset to bridge"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "Asset ID or symbol of the token to bridge"
+                    },
+                    "destination_chain": {
+                        "type": "string",
+                        "description": "Chain ID of the destination network"
+                    }
+                },
+                "required": ["amount", "token", "destination_chain"]
+            }
+        }
         # TODO: Add more base tools / functionality
         # {
         #     "name": "create_token",

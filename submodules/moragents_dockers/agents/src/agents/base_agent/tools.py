@@ -200,3 +200,7 @@ def register_basename(agent_wallet: Wallet, basename: str, amount: float = 0.002
         }
     except Exception as e:
         raise Exception(f"Failed to register basename: {str(e)}")
+
+
+def bridge_assets(agent_wallet: Wallet, amount: str, token: str, destination_address: str) -> Dict[str, Any]:
+    pass

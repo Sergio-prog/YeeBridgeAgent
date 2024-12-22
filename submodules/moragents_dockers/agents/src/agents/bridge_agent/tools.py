@@ -105,8 +105,23 @@ def check_allowance(token_address: str, wallet_address: str, chain_id):
     contract = w3.eth.contract(token_address, abi=Config.ERC20_ABI)  # type: ignore
     bridge_address = Config.BRIDGE_ADDRESS[chain_id]
 
-    allowance_amount = contract.functions.allowance(wallet_address, bridge_address)
+    allowance_amount = contract.functions.allowance(wallet_address, bridge_address).call()
+    return allowance_amount
 
+
+def approve(token_address, chain_id, amount):
+    w3 = Web3(Web3.HTTPProvider(Config.WEB3RPCURL[str(chain_id)]))
+    token_contract = w3.eth.contract(address=Web3.to_checksum_address(token_address), abi=erc20_abi)
+    bridge_address = Config.BRIDGE_ADDRESS[chain_id]
+    calldata = token_contract.encodeABI(fn_name="approve", args=[bridge_address, amount])
+    gas_price = w3.eth.gas_price
+
+    return {
+        "data": calldata,
+        "to": token_address,
+        "gasPrice": gas_price,
+        "gas": 100000
+    }
 
 
 def get_tools():

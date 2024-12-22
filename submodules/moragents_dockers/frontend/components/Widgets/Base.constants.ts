@@ -6,4 +6,7 @@ export const tokens = [
   { symbol: "dai", name: "Dai Stablecoin" },
   { symbol: "cbeth", name: "Coinbase Wrapped Staked ETH" },
   { symbol: "usdbc", name: "USD Base Coin" },
+  { symbol: "qsp", name: "QuestSwap" },
+  { symbol: "qsp2", name: "QuestSwap2" },
+  { symbol: "usdt", name: "Tether USD" }
 ];
